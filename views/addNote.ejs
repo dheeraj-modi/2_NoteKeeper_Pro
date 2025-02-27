@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Note</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Navbar -->
+    <nav class="bg-gradient-to-r from-blue-600 to-purple-600 backdrop-blur-sm shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo and Title -->
+                <div class="flex-shrink-0">
+                    <a href="#" class="flex items-center space-x-3">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                        <span class="font-bold text-2xl text-white hover:text-blue-200 transition-all duration-500">NoteKeeper Pro</span>
+                    </a>
+                </div>
+
+                <!-- User Profile and Logout -->
+                <div class="flex items-center space-x-8">
+                    <div class="flex items-center space-x-4 bg-white/10 backdrop-blur-md px-6 py-2 rounded-full">
+                        <div class="relative">
+                            <img src="https://ui-avatars.com/api/?name=<%=username%>&background=random" alt="Profile" class="w-10 h-10 rounded-full border-2 border-white shadow-lg hover:scale-110 transition-transform duration-300">
+                            <div class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-white"></div>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="font-bold text-lg text-white"><%= username%></span>
+                            <span class="text-sm text-blue-200">Online</span>
+                        </div>
+                    </div>
+
+                    <a href="/logout" class="flex items-center space-x-2 bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-full transition-all duration-300 hover:scale-105 shadow-lg group">
+                        <span class="font-semibold">Logout</span>
+                        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Add Note Section -->
+    <div class="container mx-auto mt-8 px-4">
+        <div class="bg-white p-6 rounded-lg shadow-lg max-w-3xl mx-auto">
+            <h2 class="text-3xl font-bold text-gray-800">Add New Note</h2>
+            <form action="/addNote" method="POST" class="mt-6">
+                <input type="text" name="title" placeholder="Note Title" class="w-full px-4 py-2 mb-4 border rounded-lg" required>
+                <textarea name="content" placeholder="Note Content" class="w-full px-4 py-2 mb-4 border rounded-lg" required></textarea>
+                <button type="submit" class="w-full px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">Save Note</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

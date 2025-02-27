@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User's Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Navbar -->
+    <nav class="bg-gradient-to-r from-blue-600 to-purple-600 backdrop-blur-sm shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo and Title -->
+                <div class="flex-shrink-0">
+                    <a href="#" class="flex items-center space-x-3">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                        <span class="font-bold text-2xl text-white hover:text-blue-200 transition-all duration-500">NoteKeeper Pro</span>
+                    </a>
+                </div>
+
+                <!-- User Profile and Logout -->
+                <div class="flex items-center space-x-8">
+                    <div class="flex items-center space-x-4 bg-white/10 backdrop-blur-md px-6 py-2 rounded-full">
+                        <div class="relative">
+                            <img src="https://ui-avatars.com/api/?name=<%=username%>&background=random" alt="Profile" class="w-10 h-10 rounded-full border-2 border-white shadow-lg hover:scale-110 transition-transform duration-300">
+                            <div class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-white"></div>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="font-bold text-lg text-white"><%= username%></span>
+                            <span class="text-sm text-blue-200">Online</span>
+                        </div>
+                    </div>
+
+                    <a href="/logout" class="flex items-center space-x-2 bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-full transition-all duration-300 hover:scale-105 shadow-lg group">
+                        <span class="font-semibold">Logout</span>
+                        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Profile Section -->
+    <div class="container mx-auto mt-8 px-4">
+        <div class="bg-white p-6 rounded-lg shadow-lg max-w-3xl mx-auto">
+            <h2 class="text-3xl font-bold text-gray-800">Welcome</h2>
+
+            <!-- Notes Section -->
+          <div class="mt-6">
+                <h3 class="text-2xl font-semibold text-gray-800 mb-6 text-center">My Notes Collection</h3>
+                <div id="notes-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <% if (notes.length > 0) { %>
+                        <% notes.forEach(function(note) { %>
+                            <div class="bg-yellow-100 p-6 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-200 border-t-4 border-yellow-400 relative" style="min-height: 200px;">
+                                <div class="absolute -top-3 -left-3 w-6 h-6 bg-red-400 rounded-full"></div>
+                                <h4 class="text-xl font-bold text-gray-800 mb-3 border-b-2 border-yellow-300 pb-2"><%= note.title %></h4>
+                                <!-- <p class="text-gray-700 font-medium" style="font-family: 'Comic Sans MS', cursive;"><%= note.content %></p> -->
+                                <a href="/showNote/<%= note._id %>" class="px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transform hover:scale-110 transition-transform duration-200 flex items-center">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                                    </svg>
+                                    Show Note
+                                </a>
+                                <div class="mt-4 flex space-x-3 justify-end">
+                                    <a href="/editNote/<%= note._id %>" class="px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transform hover:scale-110 transition-transform duration-200 flex items-center">
+                                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                                        </svg>
+                                        Edit
+                                    </a>
+                                   
+                                    <a href="/deleteNote/<%= note._id %>" class="px-4 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 transform hover:scale-110 transition-transform duration-200 flex items-center">
+                                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                        </svg>
+                                        Delete
+                                    </a>
+                                </div>
+                            </div>
+                        <% }); %>
+                    <% } else { %>
+                        <div class="col-span-full text-center p-8 bg-yellow-50 rounded-lg border-2 border-dashed border-yellow-300">
+                            <p class="text-lg text-gray-600">No notes found. Start your collection by adding a new note!</p>
+                            <a href="/addNote" class="inline-block mt-4 text-blue-500 hover:text-blue-700 font-semibold">+ Create Your First Note</a>
+                        </div>
+                    <% } %>
+                </div>
+
+                <a href="/addNote" class="mt-8 block w-full max-w-md mx-auto px-6 py-3 bg-gradient-to-r from-green-400 to-green-600 text-white rounded-full hover:from-green-500 hover:to-green-700 transform hover:scale-105 transition-all duration-200 text-center font-semibold shadow-lg">
+                    <span class="flex items-center justify-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                        </svg>
+                        Create New Note
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
