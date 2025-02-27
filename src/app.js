@@ -10,7 +10,6 @@ const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const flash = require("connect-flash");
 const expressSession = require("express-session");
-// const passport = require("passport");
 
 const passport = require("../passportConfig")
 
@@ -60,14 +59,15 @@ app.get("/about",(req,res)=>{
 
 app.get("/register",(req,res)=>{
     res.cookie("token", "");
-    res.render("register");
+    res.render("register",{ error_key:req.flash("msg")});
 })
 app.post("/register",async (req,res)=>{
     const {username,email,password} = req.body;
     const existingUser = await userModel.findOne({email: email});
     if(existingUser)
     {
-        res.send("user already registered");
+        req.flash("msg","User already registered");
+        res.redirect("/register");
     }
     else{
     const salt = await bcrypt.genSalt(10);
