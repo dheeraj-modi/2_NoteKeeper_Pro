@@ -14,7 +14,7 @@ const expressSession = require("express-session");
 const passport = require("../passportConfig")
 
 const app = express();
-
+app.use(express.static('public'));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
